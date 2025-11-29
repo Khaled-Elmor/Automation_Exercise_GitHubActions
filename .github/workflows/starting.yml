@@ -30,18 +30,18 @@ jobs:
     - name: Generate Allure Report 
       # Make sure you have the Allure CLI installed in your CI environment
       run: allure generate --clean allure-results -o allure-report
-      if: always()
+      if: ${{ !cancelled() }}
 
     - name: Upload Playwright Report
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         path: playwright-report/
-        retention-days: 7
+        retention-days: 5
 
     - name: Upload Allure Report
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        path: allure-results/
-        retention-days: 7
+        path: allure-report/
+        retention-days: 5
