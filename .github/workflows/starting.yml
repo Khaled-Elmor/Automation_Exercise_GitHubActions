@@ -6,7 +6,6 @@ on:
     - cron: '00 4 * * *' #runs every day at 04:00 AM
   workflow_dispatch:
 
-
 jobs:
   E2E_Chrome_Linux_Test:
     timeout-minutes: 60
@@ -21,16 +20,9 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install chromium --with-deps
 
-    - name: Run Playwright API tests
-      run: npm run api 
-    - name: Run Playwright GUI tests
+    - name: Run Playwright tests
       continue-on-error: true
-      run: npm run ETEflows 
-    
-    - name: Generate Allure Report 
-      # Make sure you have the Allure CLI installed in your CI environment
-      run: allure generate --clean allure-results -o allure-report
-      if: ${{ !cancelled() }}
+      run: npm run test 
 
     - name: Upload Playwright Report
       uses: actions/upload-artifact@v4

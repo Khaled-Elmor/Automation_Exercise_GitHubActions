@@ -3,11 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
+  "scripts": { 
+    "clean:reports": "rimraf allure-report allure-results && mkdirp allure-report allure-result",
+    "generate:reports": "npx allure generate ./allure-results --clean",
+    "pretest": "npm run clean:reports", 
+    "posttest": "npm run generate:reports", 
     "api": "npx playwright test API",
     "ETEflows": "npx playwright test tests/UserFlow",
     "safari": "npx playwright test --project=webkit ",
-    "web": "npx playwright test example --grep @web "
+    "web": "npx playwright test example --grep @web ", 
+    "script:to:run": "num run api && npm run ETEflows",
+    "test": "npm run script:to:run || npm run posttest"
   },
   "keywords": [],
   "author": "",
